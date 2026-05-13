@@ -154,7 +154,7 @@ export default function Intro() {
                 </div>
               ) : (
                 <img
-                  src="/image.png"
+                  src="/pinlee-portfolio/image.png"
                   alt="PinLee"
                   className="w-full h-full object-cover"
                   onError={() => setImgError(true)}
