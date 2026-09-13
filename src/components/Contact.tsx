@@ -1,115 +1,171 @@
 "use client";
+
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import {
-  FaPaperPlane,
-  FaEnvelope,
-  FaPhone,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
-import { motion } from "framer-motion";
+import { site, type Dictionary } from "@/content";
+import Reveal from "./Reveal";
+import SectionHead from "./SectionHead";
 
-export default function Contact() {
+const service = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+const template = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+/** With EmailJS keys the form sends from the page; without them it hands the
+ *  message to the visitor's mail app, so the button never lies about what it does. */
+const canSend = Boolean(service && template && publicKey);
+
+type State = "idle" | "sending" | "sent" | "failed";
+
+export default function Contact({ dict }: { dict: Dictionary }) {
+  const t = dict.contact;
   const formRef = useRef<HTMLFormElement>(null);
-  const [status, setStatus] = useState<
-    "idle" | "sending" | "success" | "error"
-  >("idle");
+  const [state, setState] = useState<State>("idle");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formRef.current) return;
-    setStatus("sending");
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = formRef.current;
+    if (!form) return;
+
+    if (!canSend) {
+      const data = new FormData(form);
+      const subject = `${t.form.mailSubject} ${data.get("from_name")}`;
+      const body = `${data.get("message")}\n\n— ${data.get("from_name")} (${data.get("reply_to")})`;
+      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      return;
+    }
+
+    setState("sending");
     try {
-      await emailjs.sendForm(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
-        formRef.current,
-        "YOUR_PUBLIC_KEY",
-      );
-      setStatus("success");
-      formRef.current.reset();
+      await emailjs.sendForm(service!, template!, form, publicKey!);
+      form.reset();
+      setState("sent");
     } catch (error) {
       console.error(error);
-      setStatus("error");
+      setState("failed");
     }
-  };
+  }
 
   return (
-    <section id="contact" className="py-32 px-6 relative z-10">
-      <div className="max-w-5xl mx-auto">
-        <h2 className="text-5xl font-bold gradient-text mb-12 text-center">
-          Get In Touch
-        </h2>
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
-          <div className="glass p-5 flex items-center gap-4 animated-border">
-            <FaEnvelope className="text-2xl text-accent" />
-            <div>
-              <p className="text-xs text-slate-400">Email</p>
-              <p className="font-medium">pinle2409@gmail.com</p>
-            </div>
-          </div>
-          <div className="glass p-5 flex items-center gap-4 animated-border">
-            <FaPhone className="text-2xl text-accent" />
-            <div>
-              <p className="text-xs text-slate-400">Phone</p>
-              <p className="font-medium">0816802596</p>
-            </div>
-          </div>
-          <div className="glass p-5 flex items-center gap-4 animated-border">
-            <FaMapMarkerAlt className="text-2xl text-accent" />
-            <div>
-              <p className="text-xs text-slate-400">Location</p>
-              <p className="font-medium">Ho Chi Minh City, Vietnam</p>
-            </div>
-          </div>
-        </div>
+    <section id="contact" className="section">
+      <div className="wrap">
+        <SectionHead label={t.label} title={t.title} meta={t.meta} />
 
-        <motion.form
-          ref={formRef}
-          onSubmit={handleSubmit}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="glass p-8 animated-border max-w-2xl mx-auto space-y-6"
-        >
-          <input
-            type="text"
-            name="from_name"
-            placeholder="Your Name"
-            required
-            className="input-field"
-          />
-          <input
-            type="email"
-            name="reply_to"
-            placeholder="Your Email"
-            required
-            className="input-field"
-          />
-          <textarea
-            name="message"
-            rows={5}
-            placeholder="Your Message"
-            required
-            className="input-field"
-          />
-          <button
-            type="submit"
-            disabled={status === "sending"}
-            className="w-full btn-primary"
-          >
-            <FaPaperPlane />{" "}
-            {status === "sending" ? "Sending..." : "Send Message"}
-          </button>
-          {status === "success" && (
-            <p className="text-green-400 text-center">
-              Message sent! I'll reply soon.
-            </p>
-          )}
-          {status === "error" && (
-            <p className="text-red-400 text-center">Error! Please try again.</p>
-          )}
-        </motion.form>
+        <div className="grid gap-[clamp(2.5rem,6vw,4.5rem)] lg:grid-cols-[1fr_1fr]">
+          <Reveal>
+            <p className="lede max-w-[38ch]">{t.intro}</p>
+
+            <dl className="dossier mt-10">
+              <div>
+                <dt className="mono text-muted">{t.rows.email}</dt>
+                <dd>
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="link-underline text-[0.9375rem]"
+                  >
+                    {site.email}
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt className="mono text-muted">{t.rows.phone}</dt>
+                <dd>
+                  <a
+                    href={`tel:+84${site.phone.slice(1)}`}
+                    className="link-underline text-[0.9375rem]"
+                  >
+                    {site.phone}
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt className="mono text-muted">{t.rows.github}</dt>
+                <dd>
+                  <a
+                    href={site.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="link-underline text-[0.9375rem]"
+                  >
+                    {site.github.replace("https://", "")}
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt className="mono text-muted">{t.rows.based}</dt>
+                <dd className="text-[0.9375rem] text-dim">{dict.hero.city}</dd>
+              </div>
+            </dl>
+          </Reveal>
+
+          <Reveal delay={90}>
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label htmlFor="from_name" className="mono block text-muted">
+                  {t.form.name}
+                </label>
+                <input
+                  id="from_name"
+                  name="from_name"
+                  type="text"
+                  required
+                  autoComplete="name"
+                  placeholder={t.form.namePlaceholder}
+                  className="field"
+                />
+              </div>
+              <div>
+                <label htmlFor="reply_to" className="mono block text-muted">
+                  {t.form.email}
+                </label>
+                <input
+                  id="reply_to"
+                  name="reply_to"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  placeholder={t.form.emailPlaceholder}
+                  className="field"
+                />
+              </div>
+              <div>
+                <label htmlFor="message" className="mono block text-muted">
+                  {t.form.message}
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  required
+                  placeholder={t.form.messagePlaceholder}
+                  className="field"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="btn w-full justify-center"
+                disabled={state === "sending"}
+              >
+                {state === "sending"
+                  ? t.form.sending
+                  : canSend
+                    ? t.form.send
+                    : t.form.sendMail}
+              </button>
+
+              <p aria-live="polite" className="mono min-h-4">
+                {state === "sent" && (
+                  <span className="text-jade">{t.form.sent}</span>
+                )}
+                {state === "failed" && (
+                  <span className="text-gold-soft">
+                    {t.form.failed} {site.email}
+                  </span>
+                )}
+              </p>
+            </form>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

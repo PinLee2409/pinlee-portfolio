@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>PinLee</title>
+    <link
+      rel="canonical"
+      href="https://pinlee2409.github.io/pinlee-portfolio/en/"
+    />
+    <!-- The site has no server, so the language choice happens here: send
+         Vietnamese browsers to /vi/ and everyone else to /en/. -->
+    <script>
+      var lang = String(navigator.language || "en").toLowerCase();
+      location.replace(lang.indexOf("vi") === 0 ? "./vi/" : "./en/");
+    </script>
+    <meta http-equiv="refresh" content="0; url=./en/" />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-content: center;
+        gap: 0.75rem;
+        background: #0a0908;
+        color: #938c80;
+        font: 500 0.8125rem/1.6 ui-monospace, monospace;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      a {
+        color: #d8a94b;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="./en/">English</a>
+    <a href="./vi/">Tiếng Việt</a>
+  </body>
+</html>
