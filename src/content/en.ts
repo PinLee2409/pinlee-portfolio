@@ -35,7 +35,7 @@ const en = {
     dossier: [
       { label: "Based", value: "Ho Chi Minh City, VN · UTC+7" },
       { label: "Freelance since", value: "2024" },
-      { label: "Studying", value: "Software Engineering, HITU" },
+      { label: "School", value: "Software Engineering, HITU" },
       { label: "Works in", value: "Java · Spring Boot · React · Android" },
     ],
     statusLabel: "Status",
@@ -50,11 +50,11 @@ const en = {
     label: "Work",
     title: "Four systems, carried from first sketch to production.",
     metaUnit: "selected",
-    metaYears: "2024—2025",
+    metaYears: "2025—2026",
     projects: [
       {
         title: "Nexus Social — social platform on microservices",
-        year: "2025",
+        year: "06 / 2026",
         kind: "Full-stack · mobile",
         team: "Graduation project · team of 4" as string | undefined,
         summary:
@@ -73,32 +73,55 @@ const en = {
       },
       {
         title: "Commerce platform with an ordering chatbot",
-        year: "2025",
+        year: "12 / 2025",
         kind: "Full-stack",
         team: undefined,
         summary:
-          "A storefront and admin back office on a Spring Boot REST API. The chatbot reads the catalogue, builds a cart, takes payment and files the order — the buyer never leaves the conversation.",
-        stack: ["Java", "Spring Boot", "React", "MySQL", "REST"],
-        href: undefined as string | undefined,
-      },
-      {
-        title: "Motorcycle dealership manager",
-        year: "2024",
-        kind: "Desktop",
-        team: undefined,
-        summary:
-          "Counter software for a shop floor. Staff sign in by face, stock arrives as spreadsheet imports of a few thousand rows, and invoices print at the till.",
-        stack: ["C#", ".NET", "SQL Server", "Face recognition"],
+          "A storefront, an admin back office and one Spring Boot REST API behind both. Products carry variants and stock, orders walk a state machine from cart to paid to shipped, and the back office watches revenue, inventory and every order in one place. The chatbot works against that same API — it reads the catalogue, answers questions, builds the cart, takes payment and files the order, so the buyer never leaves the conversation.",
+        stack: [
+          "Java",
+          "Spring Boot",
+          "Spring Security",
+          "JWT",
+          "JPA / Hibernate",
+          "React",
+          "MySQL",
+          "REST",
+        ],
         href: undefined as string | undefined,
       },
       {
         title: "Booking app for Android",
-        year: "2024",
+        year: "08 / 2025",
         kind: "Mobile",
         team: undefined,
         summary:
-          "Native Android booking with live availability, so two people cannot claim the same slot. Push notifications confirm each booking and payment happens in the app.",
-        stack: ["Android", "Java", "Firebase", "Push notifications"],
+          "Native Android in Java on a Firebase back end. Availability updates live and a slot is claimed inside a transaction, so two people cannot take the same time — the app says the slot is gone before anyone pays. Push notifications confirm each booking, payment happens in the app, and every booking and receipt stays on the history screen.",
+        stack: [
+          "Android",
+          "Java",
+          "Firebase Auth",
+          "Firestore",
+          "Cloud Messaging",
+          "In-app payment",
+        ],
+        href: undefined as string | undefined,
+      },
+      {
+        title: "Motorcycle dealership manager",
+        year: "03 / 2025",
+        kind: "Desktop",
+        team: undefined,
+        summary:
+          "Counter software for a shop floor: a .NET desktop client over SQL Server. Staff sign in with face recognition instead of a password, stock arrives as spreadsheet imports of a few thousand rows that are checked line by line before they land, and invoices print at the till. Sales, stock and customers sit in one database, so the owner can read a day's takings without exporting anything.",
+        stack: [
+          "C#",
+          ".NET",
+          "SQL Server",
+          "Face recognition",
+          "Excel import",
+          "Invoice printing",
+        ],
         href: undefined as string | undefined,
       },
     ],
@@ -118,6 +141,7 @@ const en = {
           "React",
           "Next.js",
           "Tailwind CSS",
+          "NativeWind",
           "Bootstrap",
         ],
       },
@@ -147,7 +171,7 @@ const en = {
       {
         name: "Data",
         note: "Each store for what suits it",
-        items: ["MySQL", "MongoDB", "Neo4j", "Redis"],
+        items: ["MySQL", "PostgreSQL", "MongoDB", "Neo4j", "Redis"],
       },
       {
         name: "Delivery",
@@ -163,11 +187,18 @@ const en = {
     meta: "2024 — now",
     roles: [
       {
-        period: "2025 — now",
+        period: "2026 — now",
         title: "Microservices engineer",
         org: "Remote contracts",
         summary:
           "Splitting monoliths into Spring Cloud services, containerising them with Docker, and running them on Kubernetes. React Native on the client side.",
+      },
+      {
+        period: "2025 — now",
+        title: "Full-stack web developer",
+        org: "Self-employed",
+        summary:
+          "Small teams and solo contracts: React front ends on Spring Boot and Node services, carried from design through to deployment.",
       },
       {
         period: "2024 — now",
@@ -175,13 +206,6 @@ const en = {
         org: "Freelance",
         summary:
           "Native apps in Java against REST and Firebase back ends, from first screen to a listing on Google Play.",
-      },
-      {
-        period: "2024 — now",
-        title: "Full-stack web developer",
-        org: "Self-employed",
-        summary:
-          "Small teams and solo contracts: React front ends on Spring Boot and Node services, carried from design through to deployment.",
       },
     ],
   },

@@ -34,7 +34,7 @@ const vi: Dictionary = {
     dossier: [
       { label: "Địa điểm", value: "TP. Hồ Chí Minh, VN · UTC+7" },
       { label: "Nhận dự án từ", value: "2024" },
-      { label: "Đang học", value: "Kỹ thuật phần mềm, HITU" },
+      { label: "Trường", value: "Kỹ thuật phần mềm, HITU" },
       { label: "Làm việc với", value: "Java · Spring Boot · React · Android" },
     ],
     statusLabel: "Trạng thái",
@@ -49,11 +49,11 @@ const vi: Dictionary = {
     label: "Dự án",
     title: "Bốn hệ thống, đi từ bản phác đầu tiên đến lúc chạy thật.",
     metaUnit: "dự án chọn lọc",
-    metaYears: "2024—2025",
+    metaYears: "2025—2026",
     projects: [
       {
         title: "Nexus Social — mạng xã hội trên nền microservices",
-        year: "2025",
+        year: "06 / 2026",
         kind: "Full-stack · mobile",
         team: "Đồ án tốt nghiệp · nhóm 4 người",
         summary:
@@ -72,32 +72,55 @@ const vi: Dictionary = {
       },
       {
         title: "Sàn thương mại điện tử với chatbot đặt hàng",
-        year: "2025",
+        year: "12 / 2025",
         kind: "Full-stack",
         team: undefined,
         summary:
-          "Gian hàng và trang quản trị chạy trên REST API Spring Boot. Chatbot đọc danh mục, dựng giỏ hàng, nhận thanh toán và chốt đơn — người mua không phải rời khỏi cuộc trò chuyện.",
-        stack: ["Java", "Spring Boot", "React", "MySQL", "REST"],
-        href: undefined,
-      },
-      {
-        title: "Phần mềm quản lý cửa hàng xe máy",
-        year: "2024",
-        kind: "Desktop",
-        team: undefined,
-        summary:
-          "Phần mềm dùng ngay tại quầy. Nhân viên đăng nhập bằng khuôn mặt, hàng nhập về theo file Excel vài nghìn dòng, hoá đơn in tại chỗ.",
-        stack: ["C#", ".NET", "SQL Server", "Face recognition"],
+          "Gian hàng, trang quản trị và một REST API Spring Boot đứng sau cả hai. Sản phẩm có biến thể và tồn kho, đơn hàng đi qua chuỗi trạng thái từ giỏ đến đã thanh toán rồi giao hàng, trang quản trị theo dõi doanh thu, kho và từng đơn ở cùng một chỗ. Chatbot chạy trên chính API đó — đọc danh mục, trả lời câu hỏi, dựng giỏ hàng, nhận thanh toán và chốt đơn, người mua không phải rời khỏi cuộc trò chuyện.",
+        stack: [
+          "Java",
+          "Spring Boot",
+          "Spring Security",
+          "JWT",
+          "JPA / Hibernate",
+          "React",
+          "MySQL",
+          "REST",
+        ],
         href: undefined,
       },
       {
         title: "Ứng dụng đặt lịch trên Android",
-        year: "2024",
+        year: "08 / 2025",
         kind: "Mobile",
         team: undefined,
         summary:
-          "Ứng dụng Android thuần, lịch trống cập nhật tức thì nên hai người không thể đặt trùng một khung giờ. Thông báo đẩy xác nhận từng lượt đặt, thanh toán ngay trong ứng dụng.",
-        stack: ["Android", "Java", "Firebase", "Push notifications"],
+          "Ứng dụng Android thuần viết bằng Java trên nền Firebase. Lịch trống cập nhật tức thì và mỗi lượt đặt được chốt trong một transaction nên hai người không thể giành cùng một khung giờ — app báo hết chỗ trước khi có ai kịp trả tiền. Thông báo đẩy xác nhận từng lượt đặt, thanh toán ngay trong ứng dụng, mọi lượt đặt và biên nhận đều nằm ở màn hình lịch sử.",
+        stack: [
+          "Android",
+          "Java",
+          "Firebase Auth",
+          "Firestore",
+          "Cloud Messaging",
+          "In-app payment",
+        ],
+        href: undefined,
+      },
+      {
+        title: "Phần mềm quản lý cửa hàng xe máy",
+        year: "03 / 2025",
+        kind: "Desktop",
+        team: undefined,
+        summary:
+          "Phần mềm dùng ngay tại quầy: một ứng dụng .NET trên nền SQL Server. Nhân viên đăng nhập bằng khuôn mặt thay vì gõ mật khẩu, hàng nhập về theo file Excel vài nghìn dòng được kiểm từng dòng trước khi vào kho, hoá đơn in tại chỗ. Bán hàng, tồn kho và khách hàng nằm chung một cơ sở dữ liệu nên chủ cửa hàng xem doanh thu trong ngày mà không phải xuất file.",
+        stack: [
+          "C#",
+          ".NET",
+          "SQL Server",
+          "Face recognition",
+          "Excel import",
+          "Invoice printing",
+        ],
         href: undefined,
       },
     ],
@@ -117,6 +140,7 @@ const vi: Dictionary = {
           "React",
           "Next.js",
           "Tailwind CSS",
+          "NativeWind",
           "Bootstrap",
         ],
       },
@@ -146,7 +170,7 @@ const vi: Dictionary = {
       {
         name: "Dữ liệu",
         note: "Mỗi kho một việc hợp với nó",
-        items: ["MySQL", "MongoDB", "Neo4j", "Redis"],
+        items: ["MySQL", "PostgreSQL", "MongoDB", "Neo4j", "Redis"],
       },
       {
         name: "Vận hành",
@@ -162,11 +186,18 @@ const vi: Dictionary = {
     meta: "2024 — nay",
     roles: [
       {
-        period: "2025 — nay",
+        period: "2026 — nay",
         title: "Kỹ sư microservices",
         org: "Dự án từ xa",
         summary:
           "Tách monolith thành các service Spring Cloud, đóng gói bằng Docker và chạy trên Kubernetes. Phía client dùng React Native.",
+      },
+      {
+        period: "2025 — nay",
+        title: "Lập trình viên web full-stack",
+        org: "Tự làm chủ",
+        summary:
+          "Nhóm nhỏ và hợp đồng cá nhân: giao diện React trên nền dịch vụ Spring Boot và Node, đi từ thiết kế đến khi lên máy chủ.",
       },
       {
         period: "2024 — nay",
@@ -174,13 +205,6 @@ const vi: Dictionary = {
         org: "Freelance",
         summary:
           "Ứng dụng Java thuần, nối với REST và Firebase, từ màn hình đầu tiên đến khi lên Google Play.",
-      },
-      {
-        period: "2024 — nay",
-        title: "Lập trình viên web full-stack",
-        org: "Tự làm chủ",
-        summary:
-          "Nhóm nhỏ và hợp đồng cá nhân: giao diện React trên nền dịch vụ Spring Boot và Node, đi từ thiết kế đến khi lên máy chủ.",
       },
     ],
   },
